@@ -45,7 +45,6 @@ public abstract class GameLevelDefaultImpl extends Thread implements GameLevel {
 
 	@Override
 	public void run() {
-		System.out.println("Okay");
 		stopGameLoop = false;
 		// main game loop 
 		long start;

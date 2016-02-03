@@ -20,7 +20,7 @@ public class SpriteManagerDefaultImpl implements SpriteManager {
 	private final int spriteSize;
 	private int spriteNumber = 0;
 	private final int maxSpriteNumber;
-	private int currentRow;
+	private int currentRow; 
 	private final int renderingSize;
 
 	public SpriteManagerDefaultImpl(String filename, Canvas canvas,

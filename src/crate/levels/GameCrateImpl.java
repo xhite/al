@@ -179,6 +179,8 @@ public class GameCrateImpl implements Game, Observer {
 					currentPlayedLevel = null;
 				}
 				currentPlayedLevel = (GameLevelCrateImpl) level;
+				defaultCanvas.setSize(currentPlayedLevel.getLevelWidth(), currentPlayedLevel.getLevelHeight());
+				f.pack();
 				levelNumber++;
 				currentLevelValue.setText(Integer.toString(levelNumber));
 				currentPlayedLevel.start();

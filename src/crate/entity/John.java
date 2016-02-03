@@ -15,11 +15,14 @@ import gameframework.game.SpriteManagerDefaultImpl;
 public class John extends GameMovable implements Drawable, GameEntity, Overlappable {
 	protected final SpriteManager spriteManager;
 	private static final int RENDERING_SIZE = 32;
+	private static final int ANIMATION_DURATION = 8;
+	private int animationCounter;
 	
 	public John(Canvas canvas){
 		this.spriteManager = new SpriteManagerDefaultImpl("resources/john.png",
-				canvas, RENDERING_SIZE, 6);
+				canvas, RENDERING_SIZE, 5);
 		this.spriteManager.setTypes("idle");
+		this.spriteManager.setType("idle");
 	}
 	
 	@Override
@@ -30,13 +33,17 @@ public class John extends GameMovable implements Drawable, GameEntity, Overlappa
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		spriteManager.setType("idle");
-		spriteManager.draw(g, getPosition());
+		this.spriteManager.draw(g, getPosition());
 	}
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
 		// TODO Auto-generated method stub
+		if(animationCounter >= ANIMATION_DURATION){
+			this.spriteManager.increment();
+			animationCounter = 0;
+		}
+		animationCounter++;
 		
 	}
 

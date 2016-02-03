@@ -4,6 +4,7 @@ import java.awt.Canvas;
 import java.awt.Point;
 
 import crate.entity.John;
+import crate.entity.WallRegular;
 import crate.rule.CrateOverlapRules;
 import gameframework.base.MoveStrategyKeyboard;
 import gameframework.game.CanvasDefaultImpl;
@@ -20,19 +21,63 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 	Canvas canvas;
 	
 	public static final int SPRITE_SIZE = 32;
-	public static final int LEVEL_WIDTH = 3;
-	public static final int LEVEL_HEIGHT = 3;
-
+	public static final int LEVEL_WIDTH = 24;
+	public static final int LEVEL_HEIGHT = 16;
+	
+	/* 0: empty
+	 * 1: 
+	 * 
+	 *
+	 */
 	static int[][] levelMap = {
 			{
-				0, 0, 0
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 			}, 
 			{
-				0, 1, 0
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
-				0, 0, 0
-			}
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+			},
 	};
 	
 	public CrateLevelOne(Game g) {
@@ -54,14 +99,13 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		this.gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
 		System.out.println(this.gameBoard);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
-		
+
 		System.out.println(LEVEL_HEIGHT);
 		// initializing the level
 		for(int i = 0; i < LEVEL_HEIGHT; i++){
 			for(int j = 0; j < LEVEL_WIDTH; j++){
-				System.out.println(j);
 				if(levelMap[i][j] == 1){
-					
+					universe.addGameEntity(new WallRegular(this.canvas, j*SPRITE_SIZE, i*SPRITE_SIZE));
 				}
 			}
 		}
@@ -76,5 +120,17 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		player.setPosition(new Point(10, 10));
 		universe.addGameEntity(player);
 		
+	}
+
+	@Override
+	public int getLevelHeight() {
+		// TODO Auto-generated method stub
+		return SPRITE_SIZE * LEVEL_HEIGHT;
+	}
+
+	@Override
+	public int getLevelWidth() {
+		// TODO Auto-generated method stub
+		return SPRITE_SIZE * LEVEL_WIDTH;
 	}
 }
