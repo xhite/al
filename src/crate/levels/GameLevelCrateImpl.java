@@ -8,7 +8,7 @@ import gameframework.game.GameUniverse;
 import gameframework.game.GameUniverseViewPort;
 
 public abstract class GameLevelCrateImpl extends Thread implements GameLevel{
-	private static final int TARGET_FPS = 60;
+	private static final int TARGET_FPS = 40;
 	private static final long NS = 1000000000;
 	
 	protected final Game game;

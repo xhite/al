@@ -97,7 +97,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		this.universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
 		System.out.println(this.universe);
 		
-		this.gameBoard = new GameUniverseViewPortDefaultImpl(canvas, universe);
+		this.gameBoard = new GameUniverseViewPortCrateImpl(canvas, universe);
 		System.out.println(this.gameBoard);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 

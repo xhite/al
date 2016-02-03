@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 
+import crate.levels.SpriteManagerCrateImpl;
 import gameframework.base.Drawable;
 import gameframework.base.Overlappable;
 import gameframework.game.GameEntity;
@@ -19,8 +20,8 @@ public class John extends GameMovable implements Drawable, GameEntity, Overlappa
 	private int animationCounter;
 	
 	public John(Canvas canvas){
-		this.spriteManager = new SpriteManagerDefaultImpl("resources/john.png",
-				canvas, RENDERING_SIZE, 5);
+		this.spriteManager = new SpriteManagerCrateImpl("resources/john.png",
+				canvas, RENDERING_SIZE, 5, 1);
 		this.spriteManager.setTypes("idle");
 		this.spriteManager.setType("idle");
 	}
