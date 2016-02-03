@@ -65,7 +65,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
@@ -107,8 +107,8 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 			for(int j = 0; j < LEVEL_WIDTH; j++){
 				if(levelMap[i][j] == -1){
 					John player = new John(canvas);
-					GameMovableDriverDefaultImpl playerDriver = new GameMovableDriverDefaultImpl();
-					MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
+					GameMovableDriverGravityImpl playerDriver = new GameMovableDriverGravityImpl();
+					MoveStrategyKeyboardCrate keyStr = new MoveStrategyKeyboardCrate();
 					playerDriver.setStrategy(keyStr);
 					playerDriver.setmoveBlockerChecker(moveBlockerChecker);
 					canvas.addKeyListener(keyStr);

@@ -8,7 +8,7 @@ import gameframework.game.GameDefaultImpl;
 import gameframework.game.GameLevel;
 
 public class Main {
-
+	// Sprites stolen from https://pranaykotapi.wordpress.com
 	public static void main(String[] args) {
 		GameCrateImpl g = new GameCrateImpl();
 		ArrayList<GameLevel> levels = new ArrayList<GameLevel>();
