@@ -3,6 +3,7 @@ package crate.levels;
 import java.awt.Canvas;
 import java.awt.Point;
 
+import crate.entity.Flames;
 import crate.entity.John;
 import crate.entity.WallRegular;
 import crate.rule.CrateOverlapRules;
@@ -27,12 +28,12 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 	/* -1: player start
 	 * 0: empty
 	 * 1: wall
-	 * 2: 
+	 * 2: flames
 	 *
 	 */
 	static int[][] levelMap = {
 			{
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 			}, 
 			{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
@@ -50,7 +51,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
@@ -59,10 +60,13 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1
 			},
 			{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+			},
+			{
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
@@ -74,10 +78,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
-			},
-			{
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
 			},
 	};
 	
@@ -119,6 +120,11 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				if(levelMap[i][j] == 1){
 					universe.addGameEntity(new WallRegular(this.canvas, j*SPRITE_SIZE, i*SPRITE_SIZE));
 				}
+				if(levelMap[i][j] == 2){
+					universe.addGameEntity(new Flames(this.canvas, j*SPRITE_SIZE, i*SPRITE_SIZE));
+				}
+				
+				//Flames
 				
 			}
 		}
