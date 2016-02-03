@@ -24,9 +24,10 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 	public static final int LEVEL_WIDTH = 24;
 	public static final int LEVEL_HEIGHT = 16;
 	
-	/* 0: empty
-	 * 1: 
-	 * 
+	/* -1: player start
+	 * 0: empty
+	 * 1: wall
+	 * 2: 
 	 *
 	 */
 	static int[][] levelMap = {
@@ -73,7 +74,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
 			},
 			{
 				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
@@ -104,21 +105,25 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		// initializing the level
 		for(int i = 0; i < LEVEL_HEIGHT; i++){
 			for(int j = 0; j < LEVEL_WIDTH; j++){
+				if(levelMap[i][j] == -1){
+					John player = new John(canvas);
+					GameMovableDriverDefaultImpl playerDriver = new GameMovableDriverDefaultImpl();
+					MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
+					playerDriver.setStrategy(keyStr);
+					playerDriver.setmoveBlockerChecker(moveBlockerChecker);
+					canvas.addKeyListener(keyStr);
+					player.setDriver(playerDriver);
+					player.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
+					universe.addGameEntity(player);
+				}
 				if(levelMap[i][j] == 1){
 					universe.addGameEntity(new WallRegular(this.canvas, j*SPRITE_SIZE, i*SPRITE_SIZE));
 				}
+				
 			}
 		}
 		
-		John player = new John(canvas);
-		GameMovableDriverDefaultImpl playerDriver = new GameMovableDriverDefaultImpl();
-		MoveStrategyKeyboard keyStr = new MoveStrategyKeyboard();
-		playerDriver.setStrategy(keyStr);
-		playerDriver.setmoveBlockerChecker(moveBlockerChecker);
-		canvas.addKeyListener(keyStr);
-		player.setDriver(playerDriver);
-		player.setPosition(new Point(10, 10));
-		universe.addGameEntity(player);
+		
 		
 	}
 
