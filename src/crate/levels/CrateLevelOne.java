@@ -3,9 +3,14 @@ package crate.levels;
 import java.awt.Canvas;
 import java.awt.Point;
 
+import crate.entity.BrickWall;
+import crate.entity.DirtWall;
 import crate.entity.Flames;
 import crate.entity.John;
-import crate.entity.WallRegular;
+import crate.entity.SteelPillar;
+import crate.entity.SteelPillarRivets;
+import crate.entity.SteelPlatform;
+import crate.entity.Wall;
 import crate.rule.CrateOverlapRules;
 import gameframework.base.MoveStrategyKeyboard;
 import gameframework.game.CanvasDefaultImpl;
@@ -27,58 +32,61 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 	
 	/* -1: player start
 	 * 0: empty
-	 * 1: wall
+	 * 1: brick
 	 * 2: flames
-	 *
+	 * 3: dirt
+	 * 4: steel platform
+	 * 5: steel pillar
+	 * 6: steel pillar with rivets
 	 */
 	static int[][] levelMap = {
 			{
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+				6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6
 			}, 
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				6, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 6
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
+				6, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 6
 			},
 			{
-				1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+				3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
 			},
 	};
 	
@@ -89,7 +97,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 
 	protected void init() {
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
-
+ 
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		
 		CrateOverlapRules johnRules = new CrateOverlapRules();
@@ -102,6 +110,13 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		System.out.println(this.gameBoard);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
 
+		// Instances for prototype of recurring wall entities
+		Wall brickWall = new BrickWall(this.canvas, 0, 0);
+		Wall dirtWall = new DirtWall(this.canvas, 0, 0);
+		Wall steelPlatform = new SteelPlatform(this.canvas, 0, 0);
+		Wall steelPillar = new SteelPillar(this.canvas, 0, 0);
+		Wall steelPillarRivets = new SteelPillarRivets(this.canvas, 0, 0);
+		
 		System.out.println(LEVEL_HEIGHT);
 		// initializing the level
 		for(int i = 0; i < LEVEL_HEIGHT; i++){
@@ -118,10 +133,32 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 					universe.addGameEntity(player);
 				}
 				if(levelMap[i][j] == 1){
-					universe.addGameEntity(new WallRegular(this.canvas, j*SPRITE_SIZE, i*SPRITE_SIZE));
+					Wall bw = brickWall.clone();
+					bw.setPos( j*SPRITE_SIZE, i*SPRITE_SIZE);
+					universe.addGameEntity(bw);
 				}
 				if(levelMap[i][j] == 2){
 					universe.addGameEntity(new Flames(this.canvas, j*SPRITE_SIZE, i*SPRITE_SIZE));
+				}
+				if(levelMap[i][j] == 3){
+					Wall dw = dirtWall.clone();
+					dw.setPos( j*SPRITE_SIZE, i*SPRITE_SIZE);
+					universe.addGameEntity(dw);
+				}
+				if(levelMap[i][j] == 4){
+					Wall dw = steelPlatform.clone();
+					dw.setPos( j*SPRITE_SIZE, i*SPRITE_SIZE);
+					universe.addGameEntity(dw);
+				}
+				if(levelMap[i][j] == 5){
+					Wall dw = steelPillar.clone();
+					dw.setPos( j*SPRITE_SIZE, i*SPRITE_SIZE);
+					universe.addGameEntity(dw);
+				}
+				if(levelMap[i][j] == 6){
+					Wall dw = steelPillarRivets.clone();
+					dw.setPos( j*SPRITE_SIZE, i*SPRITE_SIZE);
+					universe.addGameEntity(dw);
 				}
 				
 				//Flames

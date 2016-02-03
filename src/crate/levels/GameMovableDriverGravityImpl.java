@@ -16,7 +16,7 @@ public class GameMovableDriverGravityImpl implements GameMovableDriver {
 	protected MoveBlockerChecker moveBlockerChecker;
 	
 	protected MoveStrategy moveStrategy;
-	protected static final int jumpTickDuration = 16;
+	protected static final int jumpTickDuration = 15;
 	protected int remainingJumpTicks = 0;
 
 	public GameMovableDriverGravityImpl() {

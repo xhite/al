@@ -14,15 +14,14 @@ import gameframework.game.MoveBlocker;
 import gameframework.game.SpriteManager;
 import gameframework.game.SpriteManagerDefaultImpl;
 
-public class WallRegular  implements Drawable, GameEntity, MoveBlocker {
-	protected static DrawableImage image = null;
+public abstract class Wall implements Drawable, GameEntity, MoveBlocker, Cloneable {
+	protected Canvas defaultCanvas;
+	protected DrawableImage image = null;
 	int x, y;
 	public static final int RENDERING_SIZE = 32;
 
-	public WallRegular(Canvas defaultCanvas, int xx, int yy) {
-		image = new DrawableImage("resources/wall_regular.png", defaultCanvas);
-		x = xx;
-		y = yy;
+	public Wall(Canvas defaultCanvas) {
+		this.defaultCanvas = defaultCanvas;
 	}
 
 	public void draw(Graphics g) {
@@ -36,5 +35,23 @@ public class WallRegular  implements Drawable, GameEntity, MoveBlocker {
 
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(x, y, RENDERING_SIZE, RENDERING_SIZE));
+	}
+	
+	public Wall clone(){
+		Object o = null;
+		try{
+			o = super.clone();
+			Wall w = (Wall)o;
+			//w.image = this.image;
+			//w.defaultCanvas = null;
+		} catch(CloneNotSupportedException cnse){
+			// whatever
+		}
+		return (Wall) o;
+	}
+	
+	public void setPos(int x, int y){
+		this.x = x;
+		this.y = y;
 	}
 }
