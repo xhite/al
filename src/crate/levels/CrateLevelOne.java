@@ -26,7 +26,8 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 	public static final int LEVEL_WIDTH = 24;
 	public static final int LEVEL_HEIGHT = 16;
 	
-	/* -1: player start
+	/* -2: monster spawner
+	 * -1: player start
 	 * 0: empty
 	 * 1: brick
 	 * 2: flames
@@ -37,7 +38,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 	 */
 	static int[][] levelMap = {
 			{
-				6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6
+				6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, -2, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6
 			}, 
 			{
 				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
@@ -128,6 +129,11 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 					player.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
 					universe.addGameEntity(player);
 				}
+				if(levelMap[i][j] == -2){
+					MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker);
+					ms.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
+					universe.addGameEntity(ms);
+				}
 				if(levelMap[i][j] == 1){
 					Wall bw = brickWall.clone();
 					bw.setPos( j*SPRITE_SIZE, i*SPRITE_SIZE);
@@ -162,8 +168,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 			}
 		}
 
-		MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker);
-        universe.addGameEntity(ms);
+		
 
 	}
 

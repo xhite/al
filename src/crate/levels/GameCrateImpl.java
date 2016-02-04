@@ -29,7 +29,7 @@ public class GameCrateImpl implements Game, Observer {
 	protected static final int NB_ROWS = 31;
 	protected static final int NB_COLUMNS = 28;
 	protected static final int SPRITE_SIZE = 16;
-	public static final int MAX_NUMBER_OF_PLAYER = 4;
+	public static final int MAX_NUMBER_OF_PLAYER = 1;
 	public static final int NUMBER_OF_LIVES = 1;
 
 	protected CanvasDefaultImpl defaultCanvas = null;
@@ -45,28 +45,21 @@ public class GameCrateImpl implements Game, Observer {
 	protected int levelNumber;
 	protected ArrayList<GameLevel> gameLevels;
 
-	protected Label lifeText, scoreText;
-	protected Label information;
+	protected Label scoreText;
+	protected Label scoreValue;
 	protected Label informationValue;
-	protected Label lifeValue, scoreValue;
-	protected Label currentLevel;
-	protected Label currentLevelValue;
 
 	public GameCrateImpl() {
 		for (int i = 0; i < MAX_NUMBER_OF_PLAYER; ++i) {
 			score[i] = new ObservableValue<Integer>(0);
 			life[i] = new ObservableValue<Integer>(0);
 		}
-		lifeText = new Label("Lives:");
 		scoreText = new Label("Score:");
-		information = new Label("State:");
-		informationValue = new Label("Playing");
-		currentLevel = new Label("Level:");
 		createGUI();
 	}
 
 	public void createGUI() {
-		f = new Frame("Default Game");
+		f = new Frame("Super Copyright Infrigement Crate Box");
 		f.dispose();
 
 		createMenuBar();
@@ -144,17 +137,12 @@ public class GameCrateImpl implements Game, Observer {
 		JPanel c = new JPanel();
 		GridBagLayout layout = new GridBagLayout();
 		c.setLayout(layout);
-		lifeValue = new Label(Integer.toString(life[0].getValue()));
+		
 		scoreValue = new Label(Integer.toString(score[0].getValue()));
-		currentLevelValue = new Label(Integer.toString(levelNumber));
-		c.add(lifeText);
-		c.add(lifeValue);
+
 		c.add(scoreText);
 		c.add(scoreValue);
-		c.add(currentLevel);
-		c.add(currentLevelValue);
-		c.add(information);
-		c.add(informationValue);
+
 		return c;
 	}
 
@@ -182,7 +170,6 @@ public class GameCrateImpl implements Game, Observer {
 				defaultCanvas.setSize(currentPlayedLevel.getLevelWidth(), currentPlayedLevel.getLevelHeight());
 				f.pack();
 				levelNumber++;
-				currentLevelValue.setText(Integer.toString(levelNumber));
 				currentPlayedLevel.start();
 				currentPlayedLevel.join();
 			} catch (Exception e) {
@@ -236,7 +223,6 @@ public class GameCrateImpl implements Game, Observer {
 			for (ObservableValue<Integer> lifeObservable : life) {
 				if (o == lifeObservable) {
 					int lives = ((ObservableValue<Integer>) o).getValue();
-					lifeValue.setText(Integer.toString(lives));
 					if (lives == 0) {
 						informationValue.setText("Defeat");
 						currentPlayedLevel.interrupt();
