@@ -98,11 +98,11 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		Crate crate = new Crate(this.canvas);
 		CrateManager cm = new CrateManager(crate);
 		
+		this.universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
+		
 		CrateOverlapRules johnRules = new CrateOverlapRules(canvas, this.score[0], this.life[0], cm, this.universe);
 		overlapProcessor.setOverlapRules(johnRules);
-		
-		this.universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
-		System.out.println(this.universe);
+
 		
 		this.gameBoard = new GameUniverseViewPortCrateImpl(canvas, universe);
 		System.out.println(this.gameBoard);

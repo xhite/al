@@ -23,6 +23,7 @@ public class CrateOverlapRules extends OverlapRulesApplierDefaultImpl{
 		this.score = score;
 		this.life = life;
 		this.crateManager = cm;
+		System.out.println(g);
 		this.universe = g;
 	}
 
@@ -49,9 +50,8 @@ public class CrateOverlapRules extends OverlapRulesApplierDefaultImpl{
 	}
 	
 	public void overlapRule(Bullet b, Monster m) {
-		//universe.removeGameEntity(b);
-		//universe.removeGameEntity(m);
-		
+		universe.removeGameEntity(b);
+		universe.removeGameEntity(m);
 	}
 	
 	public void overlapRule(Bullet b, SteelPlatform s) {
