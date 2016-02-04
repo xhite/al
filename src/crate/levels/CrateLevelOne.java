@@ -18,7 +18,6 @@ import gameframework.game.MoveBlockerChecker;
 import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
-import jdk.nashorn.internal.scripts.JO;
 
 public class CrateLevelOne extends GameLevelCrateImpl{
 	Canvas canvas;
@@ -38,7 +37,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 	 */
 	static int[][] levelMap = {
 			{
-				6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6
+				6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, -2, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6
 			}, 
 			{
 				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
@@ -96,9 +95,8 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
  
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
-
-		CrateOverlapRules johnRules = new CrateOverlapRules(canvas);
-        johnRules.setUniverse(universe);
+		
+		CrateOverlapRules johnRules = new CrateOverlapRules();
 		overlapProcessor.setOverlapRules(johnRules);
 		
 		this.universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
@@ -130,16 +128,11 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 					canvas.addKeyListener(keyStr);
                     player = new ArmedJohn(player, new Weapon(canvas));
                     universe.addGameEntity(player);
-
-					/*Weapon weapon = new Weapon(canvas);
-					GameMovableDriverGravityImpl weaponDriver = new GameMovableDriverGravityImpl();
-                    MoveStrategyKeyboardCrate keyStr2 = new MoveStrategyKeyboardCrate();
-                    weaponDriver.setStrategy(keyStr2);
-					weaponDriver.setmoveBlockerChecker(moveBlockerChecker);
-                    canvas.addKeyListener(keyStr2);
-                    weapon.setDriver(weaponDriver);
-					weapon.setPosition(new Point((j+1)*SPRITE_SIZE, i*SPRITE_SIZE));
-					universe.addGameEntity(weapon);*/
+				}
+				if(levelMap[i][j] == -2){
+					MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker);
+					ms.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
+					universe.addGameEntity(ms);
 				}
 				if(levelMap[i][j] == 1){
 					Wall bw = brickWall.clone();
@@ -175,20 +168,15 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 			}
 		}
 
-		MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker, universe);
-        universe.addGameEntity(ms);
-
 	}
 
 	@Override
 	public int getLevelHeight() {
-		// TODO Auto-generated method stub
 		return SPRITE_SIZE * LEVEL_HEIGHT;
 	}
 
 	@Override
 	public int getLevelWidth() {
-		// TODO Auto-generated method stub
 		return SPRITE_SIZE * LEVEL_WIDTH;
 	}
 }
