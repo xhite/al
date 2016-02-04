@@ -226,6 +226,7 @@ public class GameCrateImpl implements Game, Observer {
 				if (lives == 0) {
 					currentPlayedLevel.end();
 					currentPlayedLevel.interrupt();
+					start();
 					
 				}
 			}

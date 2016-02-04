@@ -60,9 +60,10 @@ public abstract class GameLevelCrateImpl extends Thread implements GameLevel{
 
 	@Override
 	public void start() {
+		this.isGameRunning = true;
 		init();
 		super.start();
-		this.isGameRunning = true;
+		
 		try {
 			super.join();
 		} catch (InterruptedException e) {
