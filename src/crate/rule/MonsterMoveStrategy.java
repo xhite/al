@@ -31,6 +31,7 @@ public class MonsterMoveStrategy implements MoveStrategy {
     }
 
     public SpeedVector getSpeedVector() {
+    	this.currentMove.setSpeed(2);
         return currentMove;
     }
 }

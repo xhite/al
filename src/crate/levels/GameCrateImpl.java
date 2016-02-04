@@ -47,6 +47,10 @@ public class GameCrateImpl implements Game, Observer {
 
 	protected Label scoreText;
 	protected Label scoreValue;
+	protected Label highScoreText;
+	protected Label highScoreValueLabel;
+	protected int highScoreValue = 0;
+	
 	protected Label informationValue;
 
 	public GameCrateImpl() {
@@ -55,6 +59,7 @@ public class GameCrateImpl implements Game, Observer {
 			life[i] = new ObservableValue<Integer>(0);
 		}
 		scoreText = new Label("Score:");
+		highScoreText = new Label(" Best:");
 		createGUI();
 	}
 
@@ -139,10 +144,14 @@ public class GameCrateImpl implements Game, Observer {
 		c.setLayout(layout);
 		
 		scoreValue = new Label(Integer.toString(score[0].getValue()));
-
+		highScoreValueLabel = new Label(Integer.toString(0));
+		//TODO
+		
 		c.add(scoreText);
 		c.add(scoreValue);
-
+		c.add(highScoreText);
+		c.add(highScoreValueLabel);
+		
 		return c;
 	}
 
@@ -159,8 +168,6 @@ public class GameCrateImpl implements Game, Observer {
 		}
 		levelNumber = 0;
 		for (GameLevel level : gameLevels) {
-			endOfGame = new ObservableValue<Boolean>(false);
-			endOfGame.addObserver(this);
 			try {
 				if (currentPlayedLevel != null && currentPlayedLevel.isAlive()) {
 					currentPlayedLevel.interrupt();
@@ -213,31 +220,34 @@ public class GameCrateImpl implements Game, Observer {
 	}
 
 	public void update(Observable o, Object arg) {
-		if (o == endOfGame) {
-			if (endOfGame.getValue()) {
-				informationValue.setText("You win");
-				currentPlayedLevel.interrupt();
-				currentPlayedLevel.end();
-			}
-		} else {
-			for (ObservableValue<Integer> lifeObservable : life) {
-				if (o == lifeObservable) {
-					int lives = ((ObservableValue<Integer>) o).getValue();
-					if (lives == 0) {
-						informationValue.setText("Defeat");
-						currentPlayedLevel.interrupt();
-						currentPlayedLevel.end();
-					}
+		for (ObservableValue<Integer> lifeObservable : life) {
+			if (o == lifeObservable) {
+				int lives = ((ObservableValue<Integer>) o).getValue();
+				if (lives == 0) {
+					currentPlayedLevel.end();
+					currentPlayedLevel.interrupt();
+					start();
+					
 				}
 			}
-			for (ObservableValue<Integer> scoreObservable : score) {
-				if (o == scoreObservable) {
-					scoreValue
-							.setText(Integer
-									.toString(((ObservableValue<Integer>) o)
-											.getValue()));
+		}
+		
+		for (ObservableValue<Integer> scoreObservable : score) {
+			if (o == scoreObservable) {
+				int score = ((ObservableValue<Integer>)o).getValue();
+				scoreValue
+						.setText(Integer
+								.toString(((ObservableValue<Integer>) o)
+										.getValue()));
+				scoreValue.revalidate();
+				if(score > highScoreValue){
+					highScoreValue = score;
+					highScoreValueLabel.setText(Integer.toString(score));
+					
+					highScoreValueLabel.revalidate();
 				}
 			}
+		
 		}
 	}
 }
