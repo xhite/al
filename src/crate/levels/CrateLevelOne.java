@@ -3,15 +3,11 @@ package crate.levels;
 import java.awt.Canvas;
 import java.awt.Point;
 
-import crate.entity.BrickWall;
-import crate.entity.DirtWall;
-import crate.entity.Flames;
-import crate.entity.John;
-import crate.entity.SteelPillar;
-import crate.entity.SteelPillarRivets;
-import crate.entity.SteelPlatform;
-import crate.entity.Wall;
+import crate.entity.*;
 import crate.rule.CrateOverlapRules;
+import crate.rule.MonsterMovableDriver;
+import crate.rule.MonsterMoveStrategy;
+import gameframework.base.MoveStrategy;
 import gameframework.base.MoveStrategyKeyboard;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
@@ -165,9 +161,10 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				
 			}
 		}
-		
-		
-		
+
+		MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker);
+        universe.addGameEntity(ms);
+
 	}
 
 	@Override
