@@ -32,24 +32,18 @@ public class CrateOverlapRules extends OverlapRulesApplierDefaultImpl{
 	}
 	
 	public void overlapRule(Flames f, ArmedJohn j) {
-		System.out.println("Overlap");
 		this.life.setValue(0);
-		this.score.setValue(500);
-	
 	}
 
 	public void overlapRule(ArmedJohn j, Monster m) {
-		System.out.println("Overlap monster");
-		//universe.addGameEntity(new Fire(canvas, new Point(0,0)));
+
 	}
 
 	public void overlapRule(Flames f, Monster m) {
-		System.out.println("Overlap monster flame");
 
 	}
 	
 	public void overlapRule(ArmedJohn j, Crate c) {
-		System.out.println("Overlap john crate");
 		this.crateManager.shuffleCrate();
 		this.score.setValue(this.score.getValue() + 1);
 	}
