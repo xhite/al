@@ -19,6 +19,7 @@ public abstract class GameLevelCrateImpl extends Thread implements GameLevel{
 	protected boolean isGameRunning;
 
 	protected ObservableValue<Integer> life[];
+	protected ObservableValue<Integer> score[];
 
 	protected abstract void init();
 	public abstract int getLevelHeight();
@@ -27,7 +28,7 @@ public abstract class GameLevelCrateImpl extends Thread implements GameLevel{
 	public GameLevelCrateImpl(Game game){
 		this.game = game;
 		this.isGameRunning = true;
-		game.score();
+		this.score = game.score();
 		this.life = game.life();
 	}
 	
@@ -61,6 +62,7 @@ public abstract class GameLevelCrateImpl extends Thread implements GameLevel{
 	public void start() {
 		init();
 		super.start();
+		this.isGameRunning = true;
 		try {
 			super.join();
 		} catch (InterruptedException e) {
@@ -69,7 +71,7 @@ public abstract class GameLevelCrateImpl extends Thread implements GameLevel{
 	}
 	
 	public void end() {
-		
+		this.isGameRunning = false;
 	}
 
 	protected void overlap_handler() {

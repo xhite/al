@@ -26,7 +26,9 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 	public static final int LEVEL_WIDTH = 24;
 	public static final int LEVEL_HEIGHT = 16;
 	
-	/* -1: player start
+	/* -3: crate spawn point
+	 * -2: monster spawn
+	 * -1: player start
 	 * 0: empty
 	 * 1: brick
 	 * 2: flames
@@ -46,7 +48,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
+				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
 				5, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 5
@@ -58,7 +60,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
+				5, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 0, 0, 5
 			},
 			{
 				6, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 6
@@ -67,7 +69,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
+				5, 0, 0, 0, 0, 0, 0, -3, 0, 0, -3, -1, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
 				5, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 5
@@ -76,10 +78,10 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
 			},
 			{
-				5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5
+				5, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0, 5
 			},
 			{
-				6, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 6
+				6, 1, 1, 1, 1, 1, 0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 6
 			},
 			{
 				3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3
@@ -96,7 +98,11 @@ public class CrateLevelOne extends GameLevelCrateImpl{
  
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		
-		CrateOverlapRules johnRules = new CrateOverlapRules(canvas);
+		// CrateManager singleton
+		Crate crate = new Crate(this.canvas);
+		CrateManager cm = new CrateManager(crate);
+		
+		CrateOverlapRules johnRules = new CrateOverlapRules(canvas, this.score[0], this.life[0], cm);
 		overlapProcessor.setOverlapRules(johnRules);
 		
 		this.universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
@@ -105,13 +111,15 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		this.gameBoard = new GameUniverseViewPortCrateImpl(canvas, universe);
 		System.out.println(this.gameBoard);
 		((CanvasDefaultImpl) canvas).setDrawingGameBoard(gameBoard);
-
+		
 		// Instances for prototype of recurring wall entities
 		Wall brickWall = new BrickWall(this.canvas, 0, 0);
 		Wall dirtWall = new DirtWall(this.canvas, 0, 0);
 		Wall steelPlatform = new SteelPlatform(this.canvas, 0, 0);
 		Wall steelPillar = new SteelPillar(this.canvas, 0, 0);
 		Wall steelPillarRivets = new SteelPillarRivets(this.canvas, 0, 0);
+		
+		
 		
 		System.out.println(LEVEL_HEIGHT);
 		// initializing the level
@@ -133,6 +141,9 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 					MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker, universe);
 					ms.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
 					universe.addGameEntity(ms);
+				}
+				if(levelMap[i][j] == -3){
+					cm.addSpawnPoint(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
 				}
 				if(levelMap[i][j] == 1){
 					Wall bw = brickWall.clone();
@@ -162,11 +173,11 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 					dw.setPos( j*SPRITE_SIZE, i*SPRITE_SIZE);
 					universe.addGameEntity(dw);
 				}
-				
-				//Flames
-				
 			}
 		}
+		
+		universe.addGameEntity(crate);
+		cm.shuffleCrate();
 
 	}
 
