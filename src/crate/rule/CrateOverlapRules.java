@@ -36,11 +36,11 @@ public class CrateOverlapRules extends OverlapRulesApplierDefaultImpl{
 	}
 
 	public void overlapRule(ArmedJohn j, Monster m) {
-
+		this.life.setValue(0);
 	}
 
 	public void overlapRule(Flames f, Monster m) {
-
+		//universe.removeGameEntity(m);
 	}
 	
 	public void overlapRule(ArmedJohn j, Crate c) {
