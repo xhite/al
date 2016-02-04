@@ -96,7 +96,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
  
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
 		
-		CrateOverlapRules johnRules = new CrateOverlapRules();
+		CrateOverlapRules johnRules = new CrateOverlapRules(canvas);
 		overlapProcessor.setOverlapRules(johnRules);
 		
 		this.universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
@@ -130,7 +130,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
                     universe.addGameEntity(player);
 				}
 				if(levelMap[i][j] == -2){
-					MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker);
+					MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker, universe);
 					ms.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
 					universe.addGameEntity(ms);
 				}
