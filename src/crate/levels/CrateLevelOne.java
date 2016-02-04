@@ -123,10 +123,12 @@ public class CrateLevelOne extends GameLevelCrateImpl{
                     player.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
                     player.setDriver(playerDriver);
                     MoveStrategyKeyboardCrate keyStr = new MoveStrategyKeyboardCrate();
+                    ShootCommand command = new ShootCommand(universe, canvas, moveBlockerChecker);
+                    keyStr.setCommand(command);
 					playerDriver.setStrategy(keyStr);
 					playerDriver.setmoveBlockerChecker(moveBlockerChecker);
 					canvas.addKeyListener(keyStr);
-                    player = new ArmedJohn(player, new Weapon(canvas));
+                    player = new ArmedJohn(player, new Weapon(canvas, command));
                     universe.addGameEntity(player);
 				}
 				if(levelMap[i][j] == -2){

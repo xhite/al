@@ -16,13 +16,16 @@ public class Weapon implements Drawable, GameEntity,
     protected static DrawableImage image = null;
     protected Point position;
     public static final int RENDERING_SIZE = 16;
+    ShootCommand shootCommand;
 
-    public Weapon(Canvas defaultCanvas) {
+    public Weapon(Canvas defaultCanvas, ShootCommand command) {
         image = new DrawableImage("resources/machine_gun.png", defaultCanvas);
+        shootCommand = command;
     }
 
     public void setPosition(Point pos) {
         position = pos;
+        shootCommand.setPosition(position);
     }
 
     public Point getPosition() {
@@ -33,7 +36,6 @@ public class Weapon implements Drawable, GameEntity,
         g.drawImage(image.getImage(), (int) getPosition().getX(),
                 (int) getPosition().getY(), RENDERING_SIZE, RENDERING_SIZE,
                 null);
-
     }
 
     public Rectangle getBoundingBox() {

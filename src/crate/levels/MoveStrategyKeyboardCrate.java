@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import crate.entity.Command;
 import gameframework.base.MoveStrategy;
 import gameframework.base.SpeedVector;
 import gameframework.base.SpeedVectorDefaultImpl;
@@ -16,10 +17,14 @@ import gameframework.base.SpeedVectorDefaultImpl;
 public class MoveStrategyKeyboardCrate extends KeyAdapter implements MoveStrategy {
 	protected SpeedVector speedVector = new SpeedVectorDefaultImpl(new Point(0, 0));
 
-	//protected ShootCommand shootCommand;
+	protected Command command;
 
 	public SpeedVector getSpeedVector() {
 		return speedVector;
+	}
+
+	public void setCommand(Command c){
+		command = c;
 	}
 
 	@Override
@@ -37,12 +42,11 @@ public class MoveStrategyKeyboardCrate extends KeyAdapter implements MoveStrateg
 			speedVector.setDirection(new Point((int) speedVector.getDirection().getX(), -1));
 			break;
 		/*case KeyEvent.VK_DOWN:
-			speedVector.setDirection(new Point(0, 1));
-			break;
-			*/
+			break;*/
 		case KeyEvent.VK_SPACE:
-
-			break;
+            if (command != null)
+                command.execute();
+            break;
 		}
 	}
 	

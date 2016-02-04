@@ -32,13 +32,7 @@ public class Monster extends GameMovable implements Drawable, GameEntity,
 	}
 
 	@Override
-	public void oneStepMoveAddedBehavior() {
-		if(animationCounter >= ANIMATION_DURATION){
-			this.spriteManager.increment();
-			animationCounter = 0;
-		}
-		animationCounter++;
-	}
+	public void oneStepMoveAddedBehavior() {}
 
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(0, 0, RENDERING_SIZE, RENDERING_SIZE));

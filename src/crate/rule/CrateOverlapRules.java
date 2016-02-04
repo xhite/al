@@ -22,7 +22,7 @@ public class CrateOverlapRules extends OverlapRulesApplierDefaultImpl{
 	
 	public void overlapRule(Flames f, John j) {
 		System.out.println("Overlap");
-	
+
 	}
 
 	public void overlapRule(John j, Monster m) {

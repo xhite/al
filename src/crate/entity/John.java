@@ -33,13 +33,11 @@ public class John extends GameMovable implements Player {
 	
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
 		this.spriteManager.draw(g, getPosition());
 	}
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
-		// TODO Auto-generated method stub
 		if(animationCounter >= ANIMATION_DURATION){
 			this.spriteManager.increment();
 			animationCounter = 0;
