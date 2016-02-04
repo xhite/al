@@ -15,9 +15,6 @@ import gameframework.game.MoveBlockerChecker;
 import java.awt.*;
 import java.util.Vector;
 
-/**
- * Created by xhitedev on 2/3/16.
- */
 public class MonsterSpawner extends GameMovable implements GameEntity {
 
     private static final int SPAWN_INTERVAL = 150;

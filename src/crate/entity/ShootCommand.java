@@ -1,20 +1,14 @@
 package crate.entity;
 
 import crate.levels.CrateLevelOne;
-import crate.rule.MonsterMovableDriver;
-import crate.rule.MonsterMoveStrategy;
 import gameframework.base.MoveStrategy;
 import gameframework.base.MoveStrategyStraightLine;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverse;
 import gameframework.game.MoveBlockerChecker;
 
-import javax.swing.text.Position;
 import java.awt.*;
 
-/**
- * Created by xhitedev on 2/4/16.
- */
 public class ShootCommand implements Command {
 
     GameUniverse universe;

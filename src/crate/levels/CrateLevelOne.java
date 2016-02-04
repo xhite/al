@@ -5,15 +5,11 @@ import java.awt.Point;
 
 import crate.entity.*;
 import crate.rule.CrateOverlapRules;
-import crate.rule.MonsterMovableDriver;
-import crate.rule.MonsterMoveStrategy;
-import gameframework.base.MoveStrategy;
-import gameframework.base.MoveStrategyKeyboard;
+import crate.rule.GameMovableDriverGravityImpl;
+import crate.rule.MoveStrategyKeyboardCrate;
 import gameframework.game.CanvasDefaultImpl;
 import gameframework.game.Game;
-import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverseDefaultImpl;
-import gameframework.game.GameUniverseViewPortDefaultImpl;
 import gameframework.game.MoveBlockerChecker;
 import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;

@@ -6,9 +6,6 @@ import gameframework.base.SpeedVectorDefaultImpl;
 
 import java.awt.*;
 
-/**
- * Created by xhitedev on 2/3/16.
- */
 public class MonsterMoveStrategy implements MoveStrategy {
 
     SpeedVector currentMove = new SpeedVectorDefaultImpl(new Point(0, 0));

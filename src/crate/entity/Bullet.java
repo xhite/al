@@ -9,9 +9,6 @@ import gameframework.game.SpriteManager;
 
 import java.awt.*;
 
-/**
- * Created by xhitedev on 2/4/16.
- */
 public class Bullet extends GameMovable implements Drawable, GameEntity,
         Overlappable {
 

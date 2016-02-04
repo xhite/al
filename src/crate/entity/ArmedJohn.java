@@ -1,16 +1,10 @@
 package crate.entity;
 
-import crate.levels.SpriteManagerCrateImpl;
 import gameframework.base.SpeedVector;
-import gameframework.game.GameMovable;
 import gameframework.game.GameMovableDriver;
-import gameframework.game.SpriteManager;
 
 import java.awt.*;
 
-/**
- * Created by xhitedev on 2/4/16.
- */
 public class ArmedJohn implements Player {
 
     protected Weapon weapon;

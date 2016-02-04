@@ -1,12 +1,9 @@
 package crate.entity;
 
-import crate.levels.SpriteManagerCrateImpl;
 import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.game.GameEntity;
-import gameframework.game.GameMovable;
-import gameframework.game.SpriteManagerDefaultImpl;
 
 import java.awt.*;
 

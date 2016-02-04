@@ -16,8 +16,6 @@ public class Monster extends GameMovable implements Drawable, GameEntity,
 
 	private final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 32;
-	private static final int ANIMATION_DURATION = 8;
-	private int animationCounter;
 
 	public Monster(Canvas defaultCanvas) {
 		this.spriteManager = new SpriteManagerCrateImpl("resources/green.png",
@@ -32,7 +30,9 @@ public class Monster extends GameMovable implements Drawable, GameEntity,
 	}
 
 	@Override
-	public void oneStepMoveAddedBehavior() {}
+	public void oneStepMoveAddedBehavior() {
+
+	}
 
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(0, 0, RENDERING_SIZE, RENDERING_SIZE));

@@ -23,7 +23,6 @@ public class CrateOverlapRules extends OverlapRulesApplierDefaultImpl{
 		this.score = score;
 		this.life = life;
 		this.crateManager = cm;
-		System.out.println("heyo");
 	}
 
 	@Override

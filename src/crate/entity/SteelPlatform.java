@@ -12,7 +12,6 @@ public class SteelPlatform extends Wall {
 		this.defaultCanvas = defaultCanvas;
 		x = xx;
 		y = yy;
-		// TODO Auto-generated constructor stub
 	}
 
 }

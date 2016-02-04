@@ -1,4 +1,4 @@
-package crate.levels;
+package crate.rule;
 
 
 import java.awt.Point;
@@ -41,8 +41,6 @@ public class MoveStrategyKeyboardCrate extends KeyAdapter implements MoveStrateg
 		case KeyEvent.VK_UP:
 			speedVector.setDirection(new Point((int) speedVector.getDirection().getX(), -1));
 			break;
-		/*case KeyEvent.VK_DOWN:
-			break;*/
 		case KeyEvent.VK_SPACE:
             if (command != null)
                 command.execute();
@@ -63,10 +61,6 @@ public class MoveStrategyKeyboardCrate extends KeyAdapter implements MoveStrateg
 		case KeyEvent.VK_UP:
 			speedVector.setDirection(new Point((int) speedVector.getDirection().getX(), 0));
 			break;
-		/*case KeyEvent.VK_DOWN:
-			speedVector.setDirection(new Point(0, 1));
-			break;
-			*/
 		case KeyEvent.VK_SPACE:
 			// stop shooting
 			break;

@@ -1,4 +1,4 @@
-package crate.levels;
+package crate.rule;
 
 
 import java.awt.Point;
@@ -33,36 +33,10 @@ public class GameMovableDriverGravityImpl implements GameMovableDriver {
 	}
 
 	public SpeedVector getSpeedVector(Movable m) {
-		/*SpeedVector possibleSpeedVector;
-
-		possibleSpeedVector = moveStrategy.getSpeedVector();
-		System.out.println(pullSpeed);
-		
-		if (moveBlockerChecker.moveValidation(m, possibleSpeedVector)) {
-			System.out.println("flotte");
-			
-
-			return possibleSpeedVector;
-		}
-
-		// If the strategy did not provide a valid vector, try to keep the
-		// current vector.
-		possibleSpeedVector = m.getSpeedVector();
-		if (moveBlockerChecker.moveValidation(m, possibleSpeedVector)) {
-			System.out.println("Bonk");
-
-			return possibleSpeedVector;
-		}
-		*/
 		SpeedVector resultSpeedVector = new SpeedVectorDefaultImpl(new Point(0, 0));
-		
-		
 		SpeedVector gravityVector;
-		
 		SpeedVector inputSpeedVector = moveStrategy.getSpeedVector();
 
-		
-		
 		// if the user is currently jumping
 		if(remainingJumpTicks > 0){
 			gravityVector = new SpeedVectorDefaultImpl(new Point(0, -1));

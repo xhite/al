@@ -2,16 +2,11 @@ package crate.entity;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Rectangle;
 
 import crate.levels.SpriteManagerCrateImpl;
-import gameframework.base.Drawable;
-import gameframework.base.Overlappable;
-import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
 import gameframework.game.SpriteManager;
-import gameframework.game.SpriteManagerDefaultImpl;
 
 public class John extends GameMovable implements Player {
 	protected final SpriteManager spriteManager;
