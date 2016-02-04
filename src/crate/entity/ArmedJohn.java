@@ -32,6 +32,7 @@ public class ArmedJohn implements Player {
 
     @Override
     public void oneStepMove() {
+    	weapon.shootCommand.setPlayerSpeedVector(john.getSpeedVector());
         john.oneStepMove();
     }
 

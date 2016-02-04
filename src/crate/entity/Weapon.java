@@ -4,19 +4,25 @@ import gameframework.base.Drawable;
 import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.game.GameEntity;
+import gameframework.game.SpriteManager;
 
 import java.awt.*;
+
+import crate.levels.SpriteManagerCrateImpl;
 
 public class Weapon implements Drawable, GameEntity,
         Overlappable {
 
-    protected static DrawableImage image = null;
     protected Point position;
-    public static final int RENDERING_SIZE = 16;
+    private final SpriteManager spriteManager;
+	public static final int RENDERING_SIZE = 24;
     ShootCommand shootCommand;
 
     public Weapon(Canvas defaultCanvas, ShootCommand command) {
-        image = new DrawableImage("resources/machine_gun.png", defaultCanvas);
+        this.spriteManager = new SpriteManagerCrateImpl("resources/machine_gun.png",
+    			defaultCanvas, RENDERING_SIZE, 1, 2);
+    		this.spriteManager.setTypes("idle");
+    		this.spriteManager.setType("idle");
         shootCommand = command;
     }
 
@@ -30,9 +36,7 @@ public class Weapon implements Drawable, GameEntity,
     }
 
     public void draw(Graphics g) {
-        g.drawImage(image.getImage(), (int) getPosition().getX(),
-                (int) getPosition().getY(), RENDERING_SIZE, RENDERING_SIZE,
-                null);
+        spriteManager.draw(g, getPosition());
     }
 
     public Rectangle getBoundingBox() {

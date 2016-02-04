@@ -18,11 +18,12 @@ public class CrateOverlapRules extends OverlapRulesApplierDefaultImpl{
 
 	private final CrateManager crateManager;
 
-	public CrateOverlapRules(Canvas c, ObservableValue<Integer> score, ObservableValue<Integer> life, CrateManager cm){
+	public CrateOverlapRules(Canvas c, ObservableValue<Integer> score, ObservableValue<Integer> life, CrateManager cm, GameUniverse g){
 		this.canvas = c;
 		this.score = score;
 		this.life = life;
 		this.crateManager = cm;
+		this.universe = g;
 	}
 
 	@Override
@@ -46,5 +47,19 @@ public class CrateOverlapRules extends OverlapRulesApplierDefaultImpl{
 		this.crateManager.shuffleCrate();
 		this.score.setValue(this.score.getValue() + 1);
 	}
+	
+	public void overlapRule(Bullet b, Monster m) {
+		//universe.removeGameEntity(b);
+		//universe.removeGameEntity(m);
+		
+	}
+	
+	public void overlapRule(Bullet b, SteelPlatform s) {
+		//universe.removeGameEntity(b);
+		
+		//universe.removeGameEntity(m);
+		
+	}
+	
 
 }

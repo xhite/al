@@ -1,8 +1,10 @@
 package crate.entity;
 
 import crate.levels.CrateLevelOne;
+import crate.rule.MoveStrategyCrateStraightLine;
 import gameframework.base.MoveStrategy;
 import gameframework.base.MoveStrategyStraightLine;
+import gameframework.base.SpeedVector;
 import gameframework.game.GameMovableDriverDefaultImpl;
 import gameframework.game.GameUniverse;
 import gameframework.game.MoveBlockerChecker;
@@ -15,6 +17,7 @@ public class ShootCommand implements Command {
     Canvas canvas;
     MoveBlockerChecker moveBlockerChecker;
     Point position;
+    SpeedVector playerSpeedVector;
 
     public ShootCommand(GameUniverse u, Canvas c, MoveBlockerChecker m){
         universe = u;
@@ -25,17 +28,21 @@ public class ShootCommand implements Command {
     public void setPosition(Point pos){
         position = pos;
     }
+    
+    public void setPlayerSpeedVector(SpeedVector sv){
+    	this.playerSpeedVector = sv;
+    }
 
     public void execute(){
         Bullet bullet = new Bullet(canvas);
         bullet.setPosition(position);
-        System.out.println(bullet.getPosition().y);
+
         GameMovableDriverDefaultImpl monsterDriv = new GameMovableDriverDefaultImpl();
-        MoveStrategy strategy = new MoveStrategyStraightLine(position, new Point(CrateLevelOne.SPRITE_SIZE*CrateLevelOne.LEVEL_WIDTH, bullet.getPosition().y));
+        MoveStrategy strategy = new MoveStrategyCrateStraightLine(position, new Point(CrateLevelOne.SPRITE_SIZE*CrateLevelOne.LEVEL_WIDTH, bullet.getPosition().y));
         monsterDriv.setStrategy(strategy);
         monsterDriv.setmoveBlockerChecker(moveBlockerChecker);
         bullet.setDriver(monsterDriv);
-        bullet.setPosition(new Point(12 * CrateLevelOne.SPRITE_SIZE, 0));
+
         universe.addGameEntity(bullet);
     }
 }
