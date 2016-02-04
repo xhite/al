@@ -18,6 +18,7 @@ import gameframework.game.MoveBlockerChecker;
 import gameframework.game.MoveBlockerCheckerDefaultImpl;
 import gameframework.game.OverlapProcessor;
 import gameframework.game.OverlapProcessorDefaultImpl;
+import jdk.nashorn.internal.scripts.JO;
 
 public class CrateLevelOne extends GameLevelCrateImpl{
 	Canvas canvas;
@@ -95,8 +96,9 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		OverlapProcessor overlapProcessor = new OverlapProcessorDefaultImpl();
  
 		MoveBlockerChecker moveBlockerChecker = new MoveBlockerCheckerDefaultImpl();
-		
-		CrateOverlapRules johnRules = new CrateOverlapRules();
+
+		CrateOverlapRules johnRules = new CrateOverlapRules(canvas);
+        johnRules.setUniverse(universe);
 		overlapProcessor.setOverlapRules(johnRules);
 		
 		this.universe = new GameUniverseDefaultImpl(moveBlockerChecker, overlapProcessor);
@@ -118,15 +120,26 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 		for(int i = 0; i < LEVEL_HEIGHT; i++){
 			for(int j = 0; j < LEVEL_WIDTH; j++){
 				if(levelMap[i][j] == -1){
-					John player = new John(canvas);
-					GameMovableDriverGravityImpl playerDriver = new GameMovableDriverGravityImpl();
-					MoveStrategyKeyboardCrate keyStr = new MoveStrategyKeyboardCrate();
+					Player player = new John(canvas);
+                    GameMovableDriverGravityImpl playerDriver = new GameMovableDriverGravityImpl();
+                    player.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
+                    player.setDriver(playerDriver);
+                    MoveStrategyKeyboardCrate keyStr = new MoveStrategyKeyboardCrate();
 					playerDriver.setStrategy(keyStr);
 					playerDriver.setmoveBlockerChecker(moveBlockerChecker);
 					canvas.addKeyListener(keyStr);
-					player.setDriver(playerDriver);
-					player.setPosition(new Point(j*SPRITE_SIZE, i*SPRITE_SIZE));
-					universe.addGameEntity(player);
+                    player = new ArmedJohn(player, new Weapon(canvas));
+                    universe.addGameEntity(player);
+
+					/*Weapon weapon = new Weapon(canvas);
+					GameMovableDriverGravityImpl weaponDriver = new GameMovableDriverGravityImpl();
+                    MoveStrategyKeyboardCrate keyStr2 = new MoveStrategyKeyboardCrate();
+                    weaponDriver.setStrategy(keyStr2);
+					weaponDriver.setmoveBlockerChecker(moveBlockerChecker);
+                    canvas.addKeyListener(keyStr2);
+                    weapon.setDriver(weaponDriver);
+					weapon.setPosition(new Point((j+1)*SPRITE_SIZE, i*SPRITE_SIZE));
+					universe.addGameEntity(weapon);*/
 				}
 				if(levelMap[i][j] == 1){
 					Wall bw = brickWall.clone();
@@ -162,7 +175,7 @@ public class CrateLevelOne extends GameLevelCrateImpl{
 			}
 		}
 
-		MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker);
+		MonsterSpawner ms = new MonsterSpawner(canvas, moveBlockerChecker, universe);
         universe.addGameEntity(ms);
 
 	}

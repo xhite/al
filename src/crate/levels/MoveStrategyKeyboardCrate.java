@@ -16,6 +16,8 @@ import gameframework.base.SpeedVectorDefaultImpl;
 public class MoveStrategyKeyboardCrate extends KeyAdapter implements MoveStrategy {
 	protected SpeedVector speedVector = new SpeedVectorDefaultImpl(new Point(0, 0));
 
+	//protected ShootCommand shootCommand;
+
 	public SpeedVector getSpeedVector() {
 		return speedVector;
 	}
@@ -39,7 +41,7 @@ public class MoveStrategyKeyboardCrate extends KeyAdapter implements MoveStrateg
 			break;
 			*/
 		case KeyEvent.VK_SPACE:
-			// start shooting
+
 			break;
 		}
 	}

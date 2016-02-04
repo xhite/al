@@ -2,6 +2,7 @@ package crate.levels;
 
 import java.util.Date;
 
+import gameframework.base.ObservableValue;
 import gameframework.game.Game;
 import gameframework.game.GameLevel;
 import gameframework.game.GameUniverse;
@@ -15,8 +16,10 @@ public abstract class GameLevelCrateImpl extends Thread implements GameLevel{
 	
 	protected GameUniverse universe;
 	protected GameUniverseViewPort gameBoard;
-	protected boolean isGameRunning; 
-	
+	protected boolean isGameRunning;
+
+	protected ObservableValue<Integer> life[];
+
 	protected abstract void init();
 	public abstract int getLevelHeight();
 	public abstract int getLevelWidth();
@@ -25,7 +28,7 @@ public abstract class GameLevelCrateImpl extends Thread implements GameLevel{
 		this.game = game;
 		this.isGameRunning = true;
 		game.score();
-		game.life();
+		this.life = game.life();
 	}
 	
 	@Override

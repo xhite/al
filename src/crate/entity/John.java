@@ -13,12 +13,12 @@ import gameframework.game.GameMovable;
 import gameframework.game.SpriteManager;
 import gameframework.game.SpriteManagerDefaultImpl;
 
-public class John extends GameMovable implements Drawable, GameEntity, Overlappable {
+public class John extends GameMovable implements Player {
 	protected final SpriteManager spriteManager;
 	private static final int RENDERING_SIZE = 32;
 	private static final int ANIMATION_DURATION = 8;
 	private int animationCounter;
-	
+
 	public John(Canvas canvas){
 		this.spriteManager = new SpriteManagerCrateImpl("resources/john.png",
 				canvas, RENDERING_SIZE, 5, 1);

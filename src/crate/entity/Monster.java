@@ -6,6 +6,7 @@ import gameframework.base.DrawableImage;
 import gameframework.base.Overlappable;
 import gameframework.game.GameEntity;
 import gameframework.game.GameMovable;
+import gameframework.game.SpriteManager;
 import gameframework.game.SpriteManagerDefaultImpl;
 
 import java.awt.*;
@@ -13,12 +14,14 @@ import java.awt.*;
 public class Monster extends GameMovable implements Drawable, GameEntity,
 		Overlappable, Cloneable {
 
-	private final SpriteManagerDefaultImpl spriteManager;
+	private final SpriteManager spriteManager;
 	public static final int RENDERING_SIZE = 32;
+	private static final int ANIMATION_DURATION = 8;
+	private int animationCounter;
 
 	public Monster(Canvas defaultCanvas) {
-		spriteManager = new SpriteManagerDefaultImpl("images/ghost.gif",
-				defaultCanvas, RENDERING_SIZE, 6);
+		this.spriteManager = new SpriteManagerCrateImpl("resources/green.png",
+			defaultCanvas, RENDERING_SIZE, 11, 2);
 		this.spriteManager.setTypes("idle");
 		this.spriteManager.setType("idle");
 
@@ -29,7 +32,13 @@ public class Monster extends GameMovable implements Drawable, GameEntity,
 	}
 
 	@Override
-	public void oneStepMoveAddedBehavior() {}
+	public void oneStepMoveAddedBehavior() {
+		if(animationCounter >= ANIMATION_DURATION){
+			this.spriteManager.increment();
+			animationCounter = 0;
+		}
+		animationCounter++;
+	}
 
 	public Rectangle getBoundingBox() {
 		return (new Rectangle(0, 0, RENDERING_SIZE, RENDERING_SIZE));
